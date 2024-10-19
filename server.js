@@ -1,5 +1,5 @@
 process.env.TZ = 'Asia/Jakarta'
-console.log(new Date().toString())
+
 import express from 'express'
 import cors from 'cors'
 import {createServer} from 'http'
