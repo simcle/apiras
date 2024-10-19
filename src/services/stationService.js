@@ -24,8 +24,6 @@ export const selectStation = async (payload) => {
     let mnt = date.getMinutes() - 5
     date.setHours(hour)
     date.setMinutes(mnt)
-    
-    console.log(date.toString())
     const hardware_code = payload
     const data = await StationModel.aggregate([
         {$match: {hardware_code: hardware_code}},

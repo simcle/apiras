@@ -19,7 +19,7 @@ export const getDataBebApi = async () => {
                 k1: el.k1,
                 k2: el.k2,
                 k3: el.k3,
-                tlocal: el.timestamp,
+                tlocal: new Date(el.timestamp),
                 debit: el.debit
             })
         }
