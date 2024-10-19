@@ -1,9 +1,11 @@
 import express from 'express'
 
-import { insertStation, getStations } from '../controller/stations.js'
+import { createStation, getStations, getDetailStation, getImage, putStation } from '../controller/stations.js'
 const stationRouter = express.Router()
 
-stationRouter.post('/', insertStation)
+stationRouter.post('/', createStation)
 stationRouter.get('/', getStations)
-
+stationRouter.get('/:hardware_code', getDetailStation)
+stationRouter.get('/image/:hardware_code', getImage)
+stationRouter.put('/:hardware_code', putStation)
 export default stationRouter

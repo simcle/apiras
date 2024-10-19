@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose
 
 const stationSchema = new Schema({
-    name: {type: String},
+    pos_name: {type: String},
     hardware_code: {type: String},
     coordinate: {type: Array},
     no_pos: {type: String},
@@ -13,7 +13,11 @@ const stationSchema = new Schema({
     tahun_dibangun: {type: String},
     didirikan: {type: String},
     wilayah_sungai: {type: String},
-    elevasi: {type: Number},
+    elevasi: {type: String},
+    station: {type: Number, default: null},
+    k1: {type: Number, default: null},
+    k2: {type: Number, default: null},
+    k3: {type: Number, default: null},
 }, {
     timeseries: true
 })

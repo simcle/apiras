@@ -31,7 +31,6 @@ CronJob.from({
     onTick: function() {
         getDataBebApi()
         const date = new Date()
-        console.log(date.getSeconds(), date.getMinutes())
     },
     start: true
 })

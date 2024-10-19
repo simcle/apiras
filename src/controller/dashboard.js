@@ -1,8 +1,21 @@
 import { getBebApi } from "../services/sistarumService.js"
-
+import { getLastDataHecras } from "../services/hecreasService.js"
 export const getData = async (req, res) => {
     try {
         const result = await getBebApi()
+        const hecras = await getLastDataHecras()
+        for(let i = 0; i < result.length; i++) {
+            const el = result[i]
+            for(let h = 0; h < hecras.length; h++) {
+                const hec = hecras[h]
+                if(el.hardware_code == hec.hardware_code) {
+                    result[i].hec_tma_value = hec.tma_value
+                    result[i].hec_debit = hec.debit
+                    result[i].hec_timestamp = hec.createdAt
+                    result[i].hec_hardware_code = hec.hardware_code
+                }
+            }
+        }
         const data = {
             "type": "geojson",
             "data": {
@@ -24,6 +37,9 @@ export const getData = async (req, res) => {
                         'pos_name': el.pos_name,
                         'timestamp': el.timestamp,
                         'tma_value': el.tma_value,
+                        'hec_timestamp': el.hec_timestamp,
+                        'hec_tma_value': el.hec_tma_value,
+                        'hec_debit': el.hec_debit,
                         'k1': el.k1,
                         'k2': el.k2,
                         'k3': el.k3,
@@ -32,9 +48,12 @@ export const getData = async (req, res) => {
                 }
             )
         }
-        res.status(200).json(data)
+        const response = {
+            geojson: data,
+            pos: result
+        }
+        res.status(200).json(response)
     } catch (error) {
-        console.log(error)
         res.status(400).send('Error')   
     }
 
