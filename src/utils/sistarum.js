@@ -9,7 +9,8 @@ export const getDataBebApi = async () => {
     eventSistarum.emit('onGetData', result)
     for(let i = 0; i < result.length; i++) {
         const el = result[i]
-        const data = await BebapiModel.findOne({$and: [{hardware_code: el.hardware_code}, {tlocal: el.timestamp}]})
+        const tlocal = new Date(el.timestamp)
+        const data = await BebapiModel.findOne({$and: [{hardware_code: el.hardware_code}, {tlocal: tlocal}]})
         if(!data) {
             await BebapiModel.create({
                 hardware_code: el.hardware_code,
@@ -19,7 +20,7 @@ export const getDataBebApi = async () => {
                 k1: el.k1,
                 k2: el.k2,
                 k3: el.k3,
-                tlocal: new Date(el.timestamp),
+                tlocal: tlocal,
                 debit: el.debit
             })
         }
