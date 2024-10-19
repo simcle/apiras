@@ -48,7 +48,7 @@ app.use('/hecras', hecrasRouter)
 
 const PORT = 5000
 mongoose.set("strictQuery", false);
-mongoose.connect('mongodb://localhost:27017/hecras?authSource=admin', {
+mongoose.connect('mongodb://admin:pwlan123@localhost:27017/hecras?authSource=admin', {
     autoIndex: true
 })
 .then(() => {
