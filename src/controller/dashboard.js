@@ -1,5 +1,6 @@
 import { getBebApi } from "../services/sistarumService.js"
 import { getLastDataHecras } from "../services/hecreasService.js"
+import { selectAllStation } from "../services/stationService.js"
 export const getData = async (req, res) => {
     try {
         const result = await getBebApi()
@@ -57,4 +58,28 @@ export const getData = async (req, res) => {
         res.status(400).send('Error')   
     }
 
+}
+
+export const getDataForApi = async (req, res) => {
+    try {
+        const sistarum = await getBebApi()
+        const stations = await selectAllStation()
+        
+        const data = []
+        for (let i = 0; i < sistarum.length; i++) {
+            const el = sistarum[i]
+            for( let s = 0; s < stations.length; s++) {
+                const st = stations[s]
+                if(el.hardware_code == st.hardware_code) {
+                    data.push({tma_value: el.tma_value, debit: el.debit, timestamp: el.timestamp, station: st})
+                }
+            }
+        }
+    
+        return res.status(200).json(data)
+        
+    } catch (error) {
+        res.status(400).send(error)
+    }
+    
 }

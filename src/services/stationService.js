@@ -14,7 +14,7 @@ export const updateStation = async (payload) => {
 }
 
 export const selectAllStation = async () => {
-    const data = await StationModel.find().select("pos_name hardware_code")
+    const data = await StationModel.find()
     return data
 }
 

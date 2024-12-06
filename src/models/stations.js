@@ -19,7 +19,7 @@ const stationSchema = new Schema({
     k2: {type: Number, default: null},
     k3: {type: Number, default: null},
 }, {
-    timeseries: true
+    timestamps: true
 })
 
 const StationModel = mongoose.model('Station', stationSchema)
