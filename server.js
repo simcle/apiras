@@ -40,13 +40,19 @@ eventHecras.on('onSetData', (data) => {
     io.emit('hecras', data)
 })
 
+eventHecras.on('onInsert', (data) => {
+    io.emit('popup', data.debit)
+})
+
 import dashboardRouter from './src/routes/dashboard.js'
 import stationRouter from './src/routes/stations.js'
-import hecrasRouter
- from './src/routes/hecreas.js'
+import hecrasRouter from './src/routes/hecreas.js'
+import debitRouter from './src/routes/debit.js'
+
 app.use('/', dashboardRouter)
 app.use('/stations', stationRouter)
 app.use('/hecras', hecrasRouter)
+app.use('/debit', debitRouter);
 
 const PORT = 5000
 mongoose.set("strictQuery", false);
